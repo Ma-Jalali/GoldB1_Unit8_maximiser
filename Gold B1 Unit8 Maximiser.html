@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gold B1 Preliminary: Exam Maximiser — Unit 8</title><style>
+  :root{
+    --red:#C8102E; --red-dark:#9E0C22; --red-soft:#E24A5F;
+    --pink:#FCEDEB; --pink-border:#F1CDC8;
+    --ink:#1f2124; --muted:#5b6068; --line:#e5e5e8;
+    --bg:#f4f4f5; --card:#ffffff;
+    --ok:#1a7f4b; --ok-bg:#e7f5ec; --ok-border:#b7e0c6;
+    --bad:#c0263b; --bad-bg:#fbebed; --bad-border:#f2c2c9;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+  }
+  .wrap{max-width:840px; margin:0 auto; padding:0 14px 60px;}
+
+  /* Header */
+  header{background:var(--red); color:#fff; padding:20px 14px 22px; }
+  header .inner{max-width:840px; margin:0 auto; display:flex; align-items:center; gap:16px;}
+  .unitbadge{
+    background:#fff; color:var(--red); font-weight:800; font-size:34px;
+    width:60px; height:60px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+    flex:0 0 auto;
+  }
+  header h1{margin:0; font-size:15px; font-weight:600; letter-spacing:.3px; opacity:.95;}
+  header h2{margin:2px 0 0; font-size:26px; font-weight:800; letter-spacing:.5px;}
+
+  /* Table of contents */
+  .toc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:18px 0;}
+  .toc b{color:var(--red-dark); display:block; margin-bottom:6px; font-size:14px; text-transform:uppercase; letter-spacing:.6px;}
+  .toc a{display:inline-block; margin:4px 10px 4px 0; color:var(--ink); text-decoration:none; font-size:14px; border-bottom:2px solid var(--pink-border);}
+  .toc a:hover{border-color:var(--red);}
+
+  /* Section headings */
+  .skill{margin:30px 0 4px;}
+  .skill h3{color:var(--red-dark); font-size:24px; margin:0; font-weight:800;}
+  .skill .sub{color:var(--muted); font-size:15px; margin:1px 0 0;}
+
+  /* Exercise card */
+  .exercise{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 15px; margin:14px 0; box-shadow:0 1px 2px rgba(0,0,0,.03);}
+  .ex-head{display:flex; gap:10px; align-items:flex-start; margin-bottom:12px;}
+  .exnum{background:var(--red); color:#fff; font-weight:800; min-width:26px; height:26px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:15px; flex:0 0 auto; margin-top:1px;}
+  .ex-title{font-weight:700; font-size:15.5px;}
+  .ex-title .track{background:var(--red); color:#fff; border-radius:20px; padding:1px 9px; font-size:13px; margin-right:6px; white-space:nowrap;}
+
+  ol.qlist{margin:6px 0 0; padding-left:26px;}
+  ol.qlist>li{margin:11px 0; padding-left:4px;}
+  ol.qlist>li::marker{color:var(--red); font-weight:700;}
+
+  /* Reference boxes (passages, word boxes) */
+  .passage{background:var(--pink); border:1px solid var(--pink-border); border-radius:10px; padding:14px 15px; margin:10px 0;}
+  .passage h4{margin:0 0 8px; color:var(--red-dark); font-size:20px;}
+  .wordbox{background:#faf7f7; border:1px dashed var(--pink-border); border-radius:10px; padding:10px 13px; margin:8px 0 12px; font-weight:600; color:var(--red-dark); letter-spacing:.2px;}
+  .wordbox .wb-label{display:block; font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); font-weight:700; margin-bottom:3px;}
+  .courses{list-style:none; padding:0; margin:6px 0 0;}
+  .courses li{margin:0 0 10px; padding-left:2px;}
+  .courses .cl{display:inline-block; background:var(--red); color:#fff; width:20px; height:20px; border-radius:4px; text-align:center; font-weight:700; font-size:13px; margin-right:6px;}
+  .courses .cn{color:var(--red-dark); font-weight:700; font-style:italic;}
+  .people{list-style:none; padding:0; margin:0; counter-reset:pp;}
+  .people>li{position:relative; padding-left:30px; margin:12px 0;}
+  .people>li::before{counter-increment:pp; content:counter(pp); position:absolute; left:0; top:0; color:var(--red); font-weight:800;}
+
+  /* Inputs */
+  input[type=text]{
+    font:inherit; border:none; border-bottom:2px solid var(--pink-border); background:#fdf7f7;
+    padding:3px 6px; min-width:90px; width:130px; border-radius:4px 4px 0 0; color:var(--ink);
+  }
+  input[type=text]:focus{outline:none; border-color:var(--red);}
+  select{
+    font:inherit; padding:5px 8px; border:1px solid var(--pink-border); border-radius:7px;
+    background:#fff; color:var(--ink); max-width:100%;
+  }
+  select:focus{outline:none; border-color:var(--red);}
+  .blank-inline select{margin:0 2px;}
+
+  /* radio pills */
+  .radio-q{display:inline;}
+  .opt{display:inline-flex; align-items:center; gap:4px; margin:2px 8px 2px 0; cursor:pointer; padding:2px 8px; border:1px solid var(--pink-border); border-radius:20px; background:#fff; font-size:15px;}
+  .opt input{accent-color:var(--red); margin:0;}
+  .mc .opt{display:flex; margin:5px 0; border-radius:8px;}
+  .mc .lbl{font-weight:700; color:var(--red-dark); margin-right:2px;}
+
+  /* checkbox group */
+  .tips label{display:inline-flex; align-items:center; gap:5px; margin:3px 10px 3px 0; padding:3px 9px; border:1px solid var(--pink-border); border-radius:8px; cursor:pointer;}
+  .tips input{accent-color:var(--red);}
+
+  /* clickable words / phrases */
+  .word,.phrase{cursor:pointer; padding:1px 4px; border-radius:5px; border:1px dashed transparent;}
+  .word:hover,.phrase:hover{background:#fbeceb;}
+  .word.selected,.phrase.selected{background:#fcd9d4; border-color:var(--red-soft);}
+  .okw{background:var(--ok-bg)!important; border:1px solid var(--ok-border)!important; color:var(--ok)!important; text-decoration:none;}
+  .badw{background:var(--bad-bg)!important; border:1px solid var(--bad-border)!important; color:var(--bad)!important; text-decoration:line-through;}
+  .missw{background:var(--ok-bg)!important; border:1px dashed var(--ok)!important; color:var(--ok)!important;}
+
+  /* reveal-answer styles */
+  .opt.opt-correct{background:var(--ok-bg); border-color:var(--ok); color:var(--ok); font-weight:700;}
+  .opt.opt-wrong{background:var(--bad-bg); border-color:var(--bad); color:var(--bad); text-decoration:line-through;}
+  .tips label.opt-correct{background:var(--ok-bg); border-color:var(--ok); color:var(--ok); font-weight:700;}
+  .tips label.opt-wrong{background:var(--bad-bg); border-color:var(--bad); color:var(--bad); text-decoration:line-through;}
+  .ans-hint{color:var(--ok); font-weight:700; font-size:14px; margin-left:6px; white-space:nowrap;}
+
+  /* correct / incorrect states */
+  .correct{border-color:var(--ok)!important; background:var(--ok-bg)!important; color:var(--ok);}
+  select.correct, input.correct{color:var(--ink);}
+  .incorrect{border-color:var(--bad)!important; background:var(--bad-bg)!important;}
+  .radio-q.correct,.tips-q.correct{background:var(--ok-bg); border-radius:6px; padding:0 3px;}
+  .radio-q.incorrect,.tips-q.incorrect{background:var(--bad-bg); border-radius:6px; padding:0 3px;}
+
+  /* dialogue */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0;}
+  .chips .phrase{border:1px solid var(--pink-border); background:#fff; padding:6px 11px; border-radius:20px; font-size:15px;}
+  .dlg{display:grid; grid-template-columns:64px 1fr; gap:2px 10px; background:var(--pink); border:1px solid var(--pink-border); border-radius:10px; padding:14px;}
+  .dlg .who{font-weight:800; color:var(--red-dark);}
+  .dlg .ln{margin-bottom:8px;}
+
+  /* buttons + result */
+  .controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px; border-top:1px solid var(--line); padding-top:12px;}
+  button{font:inherit; font-weight:700; border-radius:8px; padding:9px 16px; cursor:pointer; border:2px solid var(--red);}
+  .btn-check{background:var(--red); color:#fff;}
+  .btn-check:active{background:var(--red-dark);}
+  .btn-reset{background:#fff; color:var(--red);}
+  .btn-model{background:#fff; color:var(--red-dark); border-color:var(--pink-border);}
+  .result{font-weight:700; margin-left:2px; font-size:15px;}
+  .result.pass{color:var(--ok);} .result.part{color:var(--red-dark);}
+  .model{display:none; margin-top:12px; background:#f5faf6; border:1px solid var(--ok-border); border-radius:10px; padding:12px 14px;}
+  .model.show{display:block;}
+  .model h5{margin:0 0 6px; color:var(--ok); font-size:14px; text-transform:uppercase; letter-spacing:.5px;}
+  .model p{margin:6px 0;}
+
+  .note{background:#fff8f8; border:1px solid var(--pink-border); border-radius:10px; padding:11px 14px; font-size:14px; color:var(--muted); margin:10px 0;}
+  .audio-wrap{margin:10px 0;}
+  .audio-wrap iframe{width:100%; height:60px; border:0; border-radius:8px;}
+  .audio-fallback{font-size:13px; margin-top:4px;}
+  a.small{color:var(--red-dark);}
+  footer{color:var(--muted); font-size:13px; text-align:center; margin-top:30px;}
+  hr.soft{border:none; border-top:1px solid var(--line); margin:26px 0 0;}
+
+/* ================= Spacing & mobile refinements ================= */
+.exercise{padding:18px 16px; margin:16px 0;}
+.ex-head{margin-bottom:14px;}
+.ex-title{line-height:1.45;}
+ol.qlist>li{margin:16px 0; padding-left:5px;}
+p{line-height:1.65;}
+
+/* Option pills: real tap targets, never touching each other */
+.opt{align-items:center; gap:7px; margin:0; padding:9px 14px; font-size:15px; line-height:1.35;}
+.opt input{flex:0 0 auto;}
+
+/* Groups that end a question move onto their own line */
+.radio-q{display:inline-flex; flex-wrap:wrap; gap:8px; vertical-align:middle;}
+.radio-q.own-line{display:flex; flex-wrap:wrap; gap:8px; margin-top:9px;}
+
+/* Stacked multiple choice */
+.mc, .mc.radio-q{display:flex; flex-direction:column; gap:0; margin-top:10px;}
+.mc .opt{display:flex; align-items:flex-start; width:100%; margin:7px 0; padding:11px 14px; border-radius:9px; line-height:1.45;}
+.mc .opt input{margin-top:4px;}
+.mc .lbl{flex:0 0 auto; margin-right:4px;}
+
+/* Word banks as separated chips */
+.wordbox{padding:12px 14px; margin:10px 0 14px; font-weight:400; letter-spacing:normal;}
+.wordbox .wb-label{margin-bottom:8px; font-size:11.5px; letter-spacing:.7px;}
+.wordbox .chips{display:flex; flex-wrap:wrap; gap:8px;}
+.wordbox .chips span{background:#fff; border:1px dashed var(--pink-border); border-radius:20px;
+  padding:5px 13px; font-weight:600; color:var(--red-dark); font-size:14.5px;}
+.wordbox .chips.chips-list{flex-direction:column; gap:7px;}
+.wordbox .chips.chips-list span{border-radius:9px; padding:9px 13px; text-align:left; line-height:1.45;}
+
+/* Checkbox lists stack instead of running together */
+.tips{display:flex; flex-direction:column; gap:8px; margin-top:10px;}
+.tips label{display:flex; align-items:flex-start; gap:9px; margin:0; padding:10px 13px; border-radius:9px; line-height:1.45;}
+.tips input{margin-top:4px; flex:0 0 auto;}
+
+/* Clickable words need room to be tapped */
+.word,.phrase{padding:3px 5px; border-radius:6px;}
+.passage p:has(.word), .passage p:has(.phrase){line-height:2.1;}
+
+/* Larger fields and buttons */
+input[type=text]{padding:6px 8px; min-width:110px; width:170px; max-width:100%;}
+select{padding:7px 9px; margin:2px 0;}
+.controls{margin-top:18px; padding-top:14px;}
+button{padding:10px 17px;}
+input[type=text]:focus,select:focus{outline:2px solid var(--red-soft); outline-offset:1px; border-color:var(--red);}
+button:focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
+
+/* Dialogues */
+.dlg{padding:16px;}
+.dlg .ln{margin-bottom:11px;}
+
+/* Floating back-to-top button */
+#toTop{
+  position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  z-index:50; display:inline-flex; align-items:center; gap:7px;
+  background:var(--red); color:#fff; border:none; border-radius:26px;
+  padding:12px 18px; font-size:15px; font-weight:700; line-height:1;
+  box-shadow:0 4px 14px rgba(0,0,0,.22); cursor:pointer;
+  opacity:0; visibility:hidden; transform:translateY(12px);
+  transition:opacity .2s ease, transform .2s ease, visibility .2s;
+}
+#toTop.show{opacity:1; visibility:visible; transform:translateY(0);}
+#toTop:active{background:var(--red-dark);}
+#toTop:focus-visible{outline:3px solid var(--ink); outline-offset:2px;}
+#toTop .arrow{font-size:17px; line-height:1;}
+.wrap{padding-bottom:78px;}
+
+@media (max-width:520px){
+  .exercise{padding:16px 13px;}
+  ol.qlist{padding-left:22px;}
+  .dlg{grid-template-columns:1fr; gap:2px;}
+  .dlg .who{margin-top:10px;}
+  .dlg .ln{margin-bottom:4px;}
+}
+@media (prefers-reduced-motion:reduce){
+  #toTop{transition:none;}
+  html{scroll-behavior:auto;}
+}
+</style></head><body><header><div class="inner"><div class="unitbadge">8</div><div><h1>Gold B1 Preliminary: Exam Maximiser</h1><h2>Unit 8 — Nearly famous</h2></div></div></header><div class="wrap"><div class="toc"><b>Contents</b><a href="#lis1">Listening</a><a href="#voc1">Vocabulary · entertainment</a><a href="#gram1">Grammar · reported speech</a><a href="#spk1">Speaking</a><a href="#gram2">Grammar · reported questions</a><a href="#read">Reading</a><a href="#voc2">Vocabulary · adjectives</a><a href="#wri">Writing</a></div><div class="note">Answer each exercise, then tap <b>Check answers</b> to see what you got right (green) or wrong (red). Tap <b>Reset</b> to try again.</div><div class="skill" id="lis1"><h3>Listening</h3><p class="sub">Gap-fill (Part 3) &middot; Coursebook page 81</p></div><div class="exercise"><div class="ex-head"><span class="exnum">1</span><span class="ex-title">Read the advertisement for a new television show. Are the sentences true or false?</span></div><div class="passage" style="font-style:normal"><p><b>New reality show</b> coming to <b>Channel 10</b> later in the year! Watch ordinary people interview celebrities when they are off-guard and ask them difficult questions. See how they react! The fun starts in August – make sure you’re tuned in!</p></div><ol class="qlist"><li>The celebrities are expecting an interview. <span class="radio-q own-line" data-type="radio" data-answer="false"><label class="opt"><input type="radio" name="u8l1a" value="true">True</label><label class="opt"><input type="radio" name="u8l1a" value="false">False</label></span></li><li>The presenters are professional actors. <span class="radio-q own-line" data-type="radio" data-answer="false"><label class="opt"><input type="radio" name="u8l1b" value="true">True</label><label class="opt"><input type="radio" name="u8l1b" value="false">False</label></span></li><li>The programme begins in the summer. <span class="radio-q own-line" data-type="radio" data-answer="true"><label class="opt"><input type="radio" name="u8l1c" value="true">True</label><label class="opt"><input type="radio" name="u8l1c" value="false">False</label></span></li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">2</span><span class="ex-title">Listen. For each question, write the correct answer in the gap (one or two words, or a number/date).</span></div><div class="audio-wrap"><iframe src="https://drive.google.com/file/d/1it1FY-c_pcrcvknk9XHRVSF54jsUMnjU/preview" allow="autoplay"></iframe><div class="audio-fallback">If the player does not load, <a class="small" href="https://drive.google.com/file/d/1it1FY-c_pcrcvknk9XHRVSF54jsUMnjU/view" target="_blank" rel="noopener">open Track 24 in a new tab</a>.</div></div><div class="passage" style="font-style:normal"><h4>New presenters wanted</h4><p><b>People required:</b> Must be outgoing and good at communication. The best age for presenters is (1) <input type="text" class="qz" data-type="text" data-answer="21|twenty-one"> .</p><p><b>Qualifications and experience:</b> Presenters get training on how to (2) <input type="text" class="qz" data-type="text" data-answer="smile"> and speak in a natural way. They are given (3) <input type="text" class="qz" data-type="text" data-answer="clothes"> to wear. They must speak (4) <input type="text" class="qz" data-type="text" data-answer="Spanish"> as well as other languages.</p><p><b>How to apply:</b> Send an email with a (5) <input type="text" class="qz" data-type="text" data-answer="photograph|photo"> and your phone number.</p><p><b>Dates for auditions:</b> Auditions will be held from 23 April to (6) <input type="text" class="qz" data-type="text" data-answer="24|24th|twenty-fourth"> April.</p></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="skill" id="voc1"><h3>Vocabulary</h3><p class="sub">entertainment &middot; Coursebook page 82</p></div><div class="exercise"><div class="ex-head"><span class="exnum">1</span><span class="ex-title">Match each word to a word in the box to make a compound noun.</span></div><div class="wordbox"><span class="wb-label">Second word</span><div class="chips"><span>actor</span><span>broadcast</span><span>business</span><span>clothes</span><span>commercial</span><span>concert</span><span>cover</span><span>dancer</span><span>opera</span><span>show</span><span>star</span><span>studio</span></div></div><ol class="qlist"><li>ballet <select class="qz" data-type="select" data-answer="dancer"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>chat <select class="qz" data-type="select" data-answer="show"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>designer <select class="qz" data-type="select" data-answer="clothes"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>film <select class="qz" data-type="select" data-answer="studio"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>magazine <select class="qz" data-type="select" data-answer="cover"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>radio <select class="qz" data-type="select" data-answer="broadcast"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>rock <select class="qz" data-type="select" data-answer="star"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>show <select class="qz" data-type="select" data-answer="business"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>soap <select class="qz" data-type="select" data-answer="opera"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>stadium <select class="qz" data-type="select" data-answer="concert"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>stage <select class="qz" data-type="select" data-answer="actor"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>talent <select class="qz" data-type="select" data-answer="show"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li><li>television <select class="qz" data-type="select" data-answer="commercial"><option value=""></option><option>actor</option><option>broadcast</option><option>business</option><option>clothes</option><option>commercial</option><option>concert</option><option>cover</option><option>dancer</option><option>opera</option><option>show</option><option>star</option><option>studio</option></select></li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">2</span><span class="ex-title">Complete the conversation with compound nouns from Exercise 1 in the correct form. The first letter of each word is given.</span></div><div class="dlg"><div class="who">Mike:</div><div class="ln">Did you see that TV programme last night – the (1) [c__ s__] <input type="text" class="qz" data-type="text" data-answer="chat show"> where the presenter talked to that (2) [b__ d__] <input type="text" class="qz" data-type="text" data-answer="ballet dancer"> ?</div><div class="who">Sara:</div><div class="ln">Yes – she left classical dancing to become a (3) [r__ s__] <input type="text" class="qz" data-type="text" data-answer="rock star"> , didn’t she? Imagine giving a (4) [s__ c__] <input type="text" class="qz" data-type="text" data-answer="stadium concert"> in front of thousands of fans!</div><div class="who">Mike:</div><div class="ln">I could have understood it if she had become a (5) [s__ a__] <input type="text" class="qz" data-type="text" data-answer="stage actor"> in a theatre – ballet involves acting.</div><div class="who">Sara:</div><div class="ln">Yes. And sometimes dancers appear in television (6) [s__ o__] <input type="text" class="qz" data-type="text" data-answer="soap operas|soap opera"> – just for the fun of acting in a popular series.</div><div class="who">Mike:</div><div class="ln">And other celebrities make (7) [t__ c__] <input type="text" class="qz" data-type="text" data-answer="television commercials|television commercial"> – they make a lot of money from advertisements.</div><div class="who">Sara:</div><div class="ln">On top of that, their photograph appears on (8) [m__ c__] <input type="text" class="qz" data-type="text" data-answer="magazine covers|magazine cover"> all over the world. They get to wear expensive (9) [d__ c__] <input type="text" class="qz" data-type="text" data-answer="designer clothes"> and stay in five-star hotels!</div><div class="who">Sara:</div><div class="ln">Why don’t you enter a (10) [t__ s__] <input type="text" class="qz" data-type="text" data-answer="talent show"> ? You might win!</div></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="skill" id="gram1"><h3>Grammar</h3><p class="sub">reported speech &middot; Coursebook page 83</p></div><div class="exercise"><div class="ex-head"><span class="exnum">1</span><span class="ex-title">Rewrite the sentences in reported speech. Then check the model answers.</span></div><ol class="qlist"><li>‘I saw Miley Cyrus in an airport once.’ (He said …)</li><li>‘I met Emma Watson in a café in March!’ (He said …)</li><li>‘I don’t believe him though.’ (She said …)</li><li>‘He’s never met anyone famous.’ (She said …)</li><li>‘He’s always saying that he’s seen someone famous somewhere or other.’ (She told me …)</li><li>‘I’ve been to the Academy Awards ceremony a couple of times.’ (She said …)</li><li>‘It was amazing!’ (She said …)</li><li>‘I can’t go this year because there’s something really important I have to do that day.’ (She told me …)</li><li>‘I’ll tell you if I’m going next year.’ (She said …)</li><li>‘You can join me!’ (She said …)</li></ol><div class="model"><h5>Model answers</h5><p>1. He said (that) he had seen Miley Cyrus in an airport once.</p><p>2. He said (that) he had met Emma Watson in a café in March.</p><p>3. She said (that) she didn’t believe him though.</p><p>4. She said (that) he had never met anyone famous.</p><p>5. She told me (that) he was always saying that he had seen someone famous somewhere or other.</p><p>6. She said (that) she had been to the Academy Awards ceremony a couple of times.</p><p>7. She said (that) it had been amazing.</p><p>8. She told me (that) she couldn’t go this/that year because there was something really important she had to do that day.</p><p>9. She said (that) she would tell me if she was going (the) next/following year.</p><p>10. She said (that) I could join her.</p></div><div class="controls"><button class="btn-model" onclick="toggleModel(this)">Show model answers</button></div></div><div class="exercise"><div class="ex-head"><span class="exnum">2</span><span class="ex-title">Some sentences have a mistake. Mark each one Correct or Mistake, then check the corrections.</span></div><ol class="qlist"><li>He told us that he could speak Japanese. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g2_1" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_1" value="mistake">Mistake</label></span></li><li>She said me she didn’t like having her photo taken. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g2_2" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_2" value="mistake">Mistake</label></span></li><li>She told she would be at home on Saturday night. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g2_3" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_3" value="mistake">Mistake</label></span></li><li>My singing coach said I had to practise more. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g2_4" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_4" value="mistake">Mistake</label></span></li><li>I told them that I didn’t want to be on a TV show. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g2_5" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_5" value="mistake">Mistake</label></span></li><li>Carla said us she had tried to get a part in a movie. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g2_6" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_6" value="mistake">Mistake</label></span></li><li>Liam said I could borrow his camera. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g2_7" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_7" value="mistake">Mistake</label></span></li><li>Luke said me he would be late for the interview. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g2_8" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_8" value="mistake">Mistake</label></span></li><li>She told to me that she was going home. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g2_9" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_9" value="mistake">Mistake</label></span></li><li>Tim said he had been late for school the day before. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g2_10" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g2_10" value="mistake">Mistake</label></span></li></ol><div class="model"><h5>Corrections</h5><p>2. She <b>told me (that)</b> / She <b>said (that)</b> she didn’t like having her photo taken.</p><p>3. She <b>told me (that)</b> / She <b>said (that)</b> she would be at home on Saturday night.</p><p>6. Carla <b>told us (that)</b> / Carla <b>said (that)</b> she had tried to get a part in a movie.</p><p>8. Luke <b>told me (that)</b> / Luke <b>said (that)</b> he would be late for the interview.</p><p>9. She <b>told me</b> / She <b>said</b> that she was going home.</p><p>Sentences 1, 4, 5, 7 and 10 are correct.</p></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><button class="btn-model" onclick="toggleModel(this)">Show corrections</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">3</span><span class="ex-title">What were the people’s actual words in Exercise 2? Rewrite the corrected sentences in direct speech. Then check.</span></div><p style="color:var(--muted)">Turn each corrected reported sentence back into the speaker’s exact words.</p><div class="model"><h5>Model answers</h5><p>1. ‘I can speak Japanese.’</p><p>2. ‘I don’t like having my photo taken.’</p><p>3. ‘I’ll be at home on Saturday night.’</p><p>4. ‘You have to practise more.’</p><p>5. ‘I don’t want to be on a TV show.’</p><p>6. ‘I tried to get a part in a movie.’</p><p>7. ‘You can borrow my camera.’</p><p>8. ‘I’ll be late for the interview.’</p><p>9. ‘I’m going home.’</p><p>10. ‘I was late for school yesterday.’</p></div><div class="controls"><button class="btn-model" onclick="toggleModel(this)">Show model answers</button></div></div><div class="exercise"><div class="ex-head"><span class="exnum">4</span><span class="ex-title">Read the interview and complete Kim’s article with the correct verb forms.</span></div><div class="passage" style="font-style:normal"><h4>Sean’s still surfing!</h4><p>I’m really impressed by Sean O’Sullivan! Sean told me that he (1) <input type="text" class="qz" data-type="text" data-answer="had grown up"> in a small town near Melbourne called Apollo Bay. Apparently, his family moved there to get away from the city. He said that his father and his brothers (2) <input type="text" class="qz" data-type="text" data-answer="had always surfed"> and that in Apollo Bay they (3) <input type="text" class="qz" data-type="text" data-answer="had surfed"> every day!</p><p>He told me that because it was such a small place, he (4) <input type="text" class="qz" data-type="text" data-answer="knew"> everyone there.</p><p>I wasn’t surprised to hear that Sean (5) <input type="text" class="qz" data-type="text" data-answer="had always loved"> movies as a child. But it surprised me that acting hadn’t been one of his dreams. He told me that he (6) <input type="text" class="qz" data-type="text" data-answer="had only started|had started"> doing acting classes after school, when his brothers began appearing on TV shows.</p><p>He’s stayed friends with his surfing mates. Sean said they (7) <input type="text" class="qz" data-type="text" data-answer="had never shown|had never really shown"> much interest in his acting career and that all they (8) <input type="text" class="qz" data-type="text" data-answer="wanted"> to do was surf.</p></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="skill" id="spk1"><h3>Speaking</h3><p class="sub">General questions (Part 1) &middot; Individual long turn (Part 2) &middot; Coursebook page 84</p></div><div class="exercise"><div class="ex-head"><span class="exnum">1</span><span class="ex-title">Choose the best answer to each question.</span></div><ol class="qlist"><li>Do you enjoy watching soap operas on television?<div class="mc radio-q" data-type="radio" data-answer="B"><label class="opt"><input type="radio" name="u8s1a" value="A"><span class="lbl">A</span> I don’t watch much television because I prefer sport. I watch a lot of football.</label><label class="opt"><input type="radio" name="u8s1a" value="B"><span class="lbl">B</span> I watch some of them, but not many – I do enjoy the ones about hospitals though because I think they’re interesting.</label></div></li><li>Do you often watch films at home with friends?<div class="mc radio-q" data-type="radio" data-answer="A"><label class="opt"><input type="radio" name="u8s1b" value="A"><span class="lbl">A</span> I think it’s much better to watch a film on a big screen – it’s more fun, so no I don’t do that often.</label><label class="opt"><input type="radio" name="u8s1b" value="B"><span class="lbl">B</span> I go to a restaurant with friends or I meet them to go shopping. Sometimes we meet at my home.</label></div></li><li>Tell us about your favourite film.<div class="mc radio-q" data-type="radio" data-answer="B"><label class="opt"><input type="radio" name="u8s1c" value="A"><span class="lbl">A</span> I love the whole Star Wars series – they’re exciting. I’ve seen them all many times.</label><label class="opt"><input type="radio" name="u8s1c" value="B"><span class="lbl">B</span> The film I love most is actually one of The Avengers series. The story is fun and there’s lots of action.</label></div></li><li>What did you do last weekend?<div class="mc radio-q" data-type="radio" data-answer="B"><label class="opt"><input type="radio" name="u8s1d" value="A"><span class="lbl">A</span> I’m sorry I can’t remember, but I probably met my friends somewhere.</label><label class="opt"><input type="radio" name="u8s1d" value="B"><span class="lbl">B</span> I went to the beach for the day with my family and in the evening we went to the cinema.</label></div></li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">2</span><span class="ex-title">Match the underlined ideas in the students’ descriptions to the words in the box.</span></div><div class="wordbox"><span class="wb-label">Box</span><div class="chips"><span>actors</span><span>autographs</span><span>remote control</span><span>rug</span><span>shelves</span><span>spectators</span><span>sports bag</span><span>tidy</span><span>tournament</span><span>uniform</span></div></div><p style="color:var(--red-dark);font-weight:700;margin:4px 0">Photograph A</p><ol class="qlist"><li>the special clothes that officials wear — <select class="qz" data-type="select" data-answer="uniform"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li><li>a competition where people play against each other — <select class="qz" data-type="select" data-answer="tournament"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li><li>his name for his fans to keep — <select class="qz" data-type="select" data-answer="autographs"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li><li>a thing that has his sports kit in it — <select class="qz" data-type="select" data-answer="sports bag"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li><li>the people watching — <select class="qz" data-type="select" data-answer="spectators"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li></ol><p style="color:var(--red-dark);font-weight:700;margin:4px 0">Photograph B</p><ol class="qlist"><li>the thing you use to change the channels on TV — <select class="qz" data-type="select" data-answer="remote control"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li><li>things inside to put stuff on — <select class="qz" data-type="select" data-answer="shelves"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li><li>people in soap operas — <select class="qz" data-type="select" data-answer="actors"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li><li>it’s not in a mess — <select class="qz" data-type="select" data-answer="tidy"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li><li>a thing like a small carpet — <select class="qz" data-type="select" data-answer="rug"><option value=""></option><option>actors</option><option>autographs</option><option>remote control</option><option>rug</option><option>shelves</option><option>spectators</option><option>sports bag</option><option>tidy</option><option>tournament</option><option>uniform</option></select></li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">3</span><span class="ex-title">Complete the student’s description of photograph A with <em>in</em> or <em>on</em>.</span></div><div class="passage" style="font-style:normal"><p>(1) <select class="qz" data-type="select" data-answer="in"><option value=""></option><option>in</option><option>on</option></select> the middle of the photograph there is a tennis player wearing sports clothes. (2) <select class="qz" data-type="select" data-answer="in"><option value=""></option><option>in</option><option>on</option></select> the background there are a lot of spectators who have been watching the game. They all look excited. (3) <select class="qz" data-type="select" data-answer="on"><option value=""></option><option>in</option><option>on</option></select> the left of the photograph there’s a man in a uniform – he’s watching what’s happening. There’s another man in a uniform standing (4) <select class="qz" data-type="select" data-answer="in"><option value=""></option><option>in</option><option>on</option></select> front of the people, looking at them. (5) <select class="qz" data-type="select" data-answer="on"><option value=""></option><option>in</option><option>on</option></select> the right of the photo I can see a woman showing the man next to her the photo she has taken. (6) <select class="qz" data-type="select" data-answer="in"><option value=""></option><option>in</option><option>on</option></select> the middle of the photo by the tennis player’s feet I can see a board with writing on it.</p></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">4</span><span class="ex-title">Complete the student’s description of photograph B with the phrases in the box.</span></div><div class="audio-wrap"><iframe src="https://drive.google.com/file/d/16_P5xQrb8Vv6CENw2l2L3W4MAC3R8_am/preview" allow="autoplay"></iframe><div class="audio-fallback">If the player does not load, <a class="small" href="https://drive.google.com/file/d/16_P5xQrb8Vv6CENw2l2L3W4MAC3R8_am/view" target="_blank" rel="noopener">open Track 25 in a new tab</a>.</div></div><div class="note" style="margin-top:0">Track 25: listen and check your answers to this exercise.</div><div class="wordbox"><span class="wb-label">Box</span><div class="chips"><span>above</span><span>I can see</span><span>on the right of</span><span>there’s</span><span>they’re</span><span>underneath</span></div></div><div class="passage" style="font-style:normal"><p>(1) <select class="qz" data-type="select" data-answer="on the right of"><option value=""></option><option>above</option><option>I can see</option><option>on the right of</option><option>there is</option><option>they are</option><option>underneath</option></select> the photograph there are two people sitting together on a sofa. They could be a mother with her daughter. (2) <select class="qz" data-type="select" data-answer="they are"><option value=""></option><option>above</option><option>I can see</option><option>on the right of</option><option>there is</option><option>they are</option><option>underneath</option></select> both wearing casual clothes. They’re watching television together. One of them is holding a remote control. On the screen (3) <select class="qz" data-type="select" data-answer="I can see"><option value=""></option><option>above</option><option>I can see</option><option>on the right of</option><option>there is</option><option>they are</option><option>underneath</option></select> two actors – a man and a woman. It could be a talent show. (4) <select class="qz" data-type="select" data-answer="underneath"><option value=""></option><option>above</option><option>I can see</option><option>on the right of</option><option>there is</option><option>they are</option><option>underneath</option></select> the television there are some shelves with a black box, which looks like a DVD recorder. On the left of the television (5) <select class="qz" data-type="select" data-answer="there is"><option value=""></option><option>above</option><option>I can see</option><option>on the right of</option><option>there is</option><option>they are</option><option>underneath</option></select> a cupboard with some enormous glasses in it. (6) <select class="qz" data-type="select" data-answer="above"><option value=""></option><option>above</option><option>I can see</option><option>on the right of</option><option>there is</option><option>they are</option><option>underneath</option></select> the television there’s a picture in a frame and two potted plants. The room is very tidy!</p></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="skill" id="gram2"><h3>Grammar</h3><p class="sub">reported questions &middot; Coursebook page 85</p></div><div class="exercise"><div class="ex-head"><span class="exnum">1</span><span class="ex-title">Rewrite the questions in reported speech. Begin with <em>He asked me …</em>. Then check the model.</span></div><ol class="qlist"><li>‘Do you find Brad Pitt attractive?’</li><li>‘What do you like most about him?’</li><li>‘Do you think he is more attractive than Johnny Depp?’</li><li>‘What did you think of his latest film?’</li><li>‘Was Angelina Jolie in it too?’</li><li>‘Who else was in it?’</li><li>‘Have you seen any of her films?’</li><li>‘Are you going to the cinema this weekend?’</li><li>‘Can I come with you?’</li><li>‘How much will the tickets cost?’</li></ol><div class="model"><h5>Model answers</h5><p>1. He asked me if/whether I found Brad Pitt attractive.</p><p>2. He asked me what I liked most about him.</p><p>3. He asked me if/whether I thought he was more attractive than Johnny Depp.</p><p>4. He asked me what I had thought of his latest film.</p><p>5. He asked me if/whether Angelina Jolie was/had been in it too.</p><p>6. He asked me who else was/had been in it.</p><p>7. He asked me if/whether I had seen any of her films.</p><p>8. He asked me if/whether I was going to the cinema that weekend.</p><p>9. He asked me if/whether he could come with me.</p><p>10. He asked me how much the tickets would cost.</p></div><div class="controls"><button class="btn-model" onclick="toggleModel(this)">Show model answers</button></div></div><div class="exercise"><div class="ex-head"><span class="exnum">2</span><span class="ex-title">Some sentences have a mistake. Mark each one Correct or Mistake, then check the corrections.</span></div><ol class="qlist"><li>She asked me where did I live. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g22_1" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_1" value="mistake">Mistake</label></span></li><li>She asked me have you always lived there. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g22_2" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_2" value="mistake">Mistake</label></span></li><li>She wanted to know what it was like living there. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g22_3" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_3" value="mistake">Mistake</label></span></li><li>She also asked me what I am studying at the moment. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g22_4" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_4" value="mistake">Mistake</label></span></li><li>She asked me what I had done during the summer holidays. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g22_5" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_5" value="mistake">Mistake</label></span></li><li>She wanted to know if I had enjoyed myself. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g22_6" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_6" value="mistake">Mistake</label></span></li><li>She asked if I have got any special plans for the future. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g22_7" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_7" value="mistake">Mistake</label></span></li><li>She wanted to know what was I going to do when I finished studying. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g22_8" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_8" value="mistake">Mistake</label></span></li><li>She also asked me what I enjoyed doing with my friends in the evenings. <span class="radio-q own-line" data-type="radio" data-answer="correct"><label class="opt"><input type="radio" name="u8g22_9" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_9" value="mistake">Mistake</label></span></li><li>She wanted to know do I enjoy watching television or listening to music. <span class="radio-q own-line" data-type="radio" data-answer="mistake"><label class="opt"><input type="radio" name="u8g22_10" value="correct">Correct</label><label class="opt"><input type="radio" name="u8g22_10" value="mistake">Mistake</label></span></li></ol><div class="model"><h5>Corrections</h5><p>1. She asked me where <b>I lived</b>.</p><p>2. She asked me <b>if/whether I had always lived</b> there.</p><p>4. She also asked me what <b>I was studying</b> at the moment.</p><p>7. She asked <b>if I had got</b> any special plans for the future.</p><p>8. She wanted to know what <b>I was going</b> to do when I finished studying.</p><p>10. She wanted to know <b>if/whether I enjoyed</b> watching television or listening to music.</p><p>Sentences 3, 5, 6 and 9 are correct.</p></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><button class="btn-model" onclick="toggleModel(this)">Show corrections</button><span class="result"></span></div></div><div class="skill" id="read"><h3>Reading</h3><p class="sub">Multiple-choice cloze (Part 5) &middot; Coursebook page 86</p></div><div class="exercise"><div class="ex-head"><span class="exnum">1</span><span class="ex-title">Read the article in Exercise 2 quickly and choose the best title for it.</span></div><div class="mc radio-q" data-type="radio" data-answer="A"><label class="opt"><input type="radio" name="u8r1" value="A"><span class="lbl">A</span> Why people are interested in celebrities</label><label class="opt"><input type="radio" name="u8r1" value="B"><span class="lbl">B</span> The secret life of celebrities</label><label class="opt"><input type="radio" name="u8r1" value="C"><span class="lbl">C</span> A celebrity lifestyle</label></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">2</span><span class="ex-title">For each gap, choose the correct answer.</span></div><div class="passage" style="font-style:normal"><p>Our fascination with celebrities is nothing new. The musicians and silent film stars of the past also had thousands of fans. But why do the rich and famous (1) to us so much? Psychologists tell us that news about celebrities (2) us believe that anything is possible. Our dreams can come (3) and we too can become hugely successful and have everything we want.</p><p>Curiosity about celebrities isn’t necessarily harmful but it may (4) that we don’t feel very closely connected to our friends, family and community. That’s why we sometimes use information about celebrities on social media to (5) a gap in our lives. This is why we (6) so upset about the deaths of famous people. Fortunately, our grief doesn’t usually last more than a couple of weeks.</p></div><ol class="qlist"><li><div class="mc radio-q" data-type="radio" data-answer="B"><label class="opt"><input type="radio" name="u8r2_1" value="A"><span class="lbl">A</span> attract</label><label class="opt"><input type="radio" name="u8r2_1" value="B"><span class="lbl">B</span> appeal</label><label class="opt"><input type="radio" name="u8r2_1" value="C"><span class="lbl">C</span> draw</label><label class="opt"><input type="radio" name="u8r2_1" value="D"><span class="lbl">D</span> catch</label></div></li><li><div class="mc radio-q" data-type="radio" data-answer="A"><label class="opt"><input type="radio" name="u8r2_2" value="A"><span class="lbl">A</span> makes</label><label class="opt"><input type="radio" name="u8r2_2" value="B"><span class="lbl">B</span> shows</label><label class="opt"><input type="radio" name="u8r2_2" value="C"><span class="lbl">C</span> keeps</label><label class="opt"><input type="radio" name="u8r2_2" value="D"><span class="lbl">D</span> means</label></div></li><li><div class="mc radio-q" data-type="radio" data-answer="D"><label class="opt"><input type="radio" name="u8r2_3" value="A"><span class="lbl">A</span> real</label><label class="opt"><input type="radio" name="u8r2_3" value="B"><span class="lbl">B</span> right</label><label class="opt"><input type="radio" name="u8r2_3" value="C"><span class="lbl">C</span> exact</label><label class="opt"><input type="radio" name="u8r2_3" value="D"><span class="lbl">D</span> true</label></div></li><li><div class="mc radio-q" data-type="radio" data-answer="C"><label class="opt"><input type="radio" name="u8r2_4" value="A"><span class="lbl">A</span> tell</label><label class="opt"><input type="radio" name="u8r2_4" value="B"><span class="lbl">B</span> say</label><label class="opt"><input type="radio" name="u8r2_4" value="C"><span class="lbl">C</span> mean</label><label class="opt"><input type="radio" name="u8r2_4" value="D"><span class="lbl">D</span> be</label></div></li><li><div class="mc radio-q" data-type="radio" data-answer="A"><label class="opt"><input type="radio" name="u8r2_5" value="A"><span class="lbl">A</span> fill</label><label class="opt"><input type="radio" name="u8r2_5" value="B"><span class="lbl">B</span> complete</label><label class="opt"><input type="radio" name="u8r2_5" value="C"><span class="lbl">C</span> answer</label><label class="opt"><input type="radio" name="u8r2_5" value="D"><span class="lbl">D</span> shut</label></div></li><li><div class="mc radio-q" data-type="radio" data-answer="C"><label class="opt"><input type="radio" name="u8r2_6" value="A"><span class="lbl">A</span> go</label><label class="opt"><input type="radio" name="u8r2_6" value="B"><span class="lbl">B</span> turn</label><label class="opt"><input type="radio" name="u8r2_6" value="C"><span class="lbl">C</span> get</label><label class="opt"><input type="radio" name="u8r2_6" value="D"><span class="lbl">D</span> develop</label></div></li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">3</span><span class="ex-title">Find words in the article to match definitions 1–8.</span></div><ol class="qlist"><li>damaging — <input type="text" class="qz" data-type="text" data-answer="harmful"></li><li>the time before the present — <input type="text" class="qz" data-type="text" data-answer="past"></li><li>the state of being very interested in something — <input type="text" class="qz" data-type="text" data-answer="fascination"></li><li>great sadness — <input type="text" class="qz" data-type="text" data-answer="grief"></li><li>unhappy and worried because something bad has happened — <input type="text" class="qz" data-type="text" data-answer="upset"></li><li>the desire to know about something — <input type="text" class="qz" data-type="text" data-answer="curiosity"></li><li>continue — <input type="text" class="qz" data-type="text" data-answer="last"></li><li>getting the results you want — <input type="text" class="qz" data-type="text" data-answer="successful"></li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="skill" id="voc2"><h3>Vocabulary</h3><p class="sub">-ed and -ing adjectives &middot; Coursebook page 86</p></div><div class="exercise"><div class="ex-head"><span class="exnum">1</span><span class="ex-title">Choose the correct alternatives to complete the rules.</span></div><ol class="qlist"><li>When an adjective describes a person’s feelings, it ends in <span class="radio-q own-line" data-type="radio" data-answer="-ed"><label class="opt"><input type="radio" name="u8v1a" value="-ed">-ed</label><label class="opt"><input type="radio" name="u8v1a" value="-ing">-ing</label></span></li><li>When an adjective describes a thing that affects a person’s feelings, it ends in <span class="radio-q own-line" data-type="radio" data-answer="-ing"><label class="opt"><input type="radio" name="u8v1b" value="-ed">-ed</label><label class="opt"><input type="radio" name="u8v1b" value="-ing">-ing</label></span></li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">2</span><span class="ex-title">Complete the sentences with adjectives formed from the verbs in brackets.</span></div><ol class="qlist"><li>It’s rather <input type="text" class="qz" data-type="text" data-answer="depressing"> (depress) when things keep going wrong.</li><li>I am <input type="text" class="qz" data-type="text" data-answer="fascinated"> (fascinate) by the lives of celebrities – I can’t stop reading about them!</li><li>I find it <input type="text" class="qz" data-type="text" data-answer="surprising"> (surprise) that so many people read about celebrities.</li><li>I get very <input type="text" class="qz" data-type="text" data-answer="frightened"> (frighten) if I watch horror films on television on my own.</li><li>There’s a very <input type="text" class="qz" data-type="text" data-answer="interesting"> (interest) programme on television tonight about celebrities.</li><li>It’s very <input type="text" class="qz" data-type="text" data-answer="encouraging"> (encourage) when people tell you that you’re doing things well.</li><li>I’m <input type="text" class="qz" data-type="text" data-answer="amazed"> (amaze) you’ve never heard of her – she’s really famous!</li><li>It’s <input type="text" class="qz" data-type="text" data-answer="worrying"> (worry) that such talentless people are role models for so many young people nowadays.</li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">3</span><span class="ex-title">Complete the sentences with adjectives formed from the verbs in the box.</span></div><div class="wordbox"><span class="wb-label">Verbs</span><div class="chips"><span>amaze</span><span>depress</span><span>encourage</span><span>fascinate</span><span>frighten</span><span>interest</span><span>surprise</span><span>worry</span></div></div><ol class="qlist"><li>I feel rather <input type="text" class="qz" data-type="text" data-answer="depressed"> when the newspapers are full of pointless articles about celebrities.</li><li>The lives of rich people are <input type="text" class="qz" data-type="text" data-answer="fascinating"> – they are so different from mine!</li><li>I get very <input type="text" class="qz" data-type="text" data-answer="encouraged"> when celebrities do a lot of charity work.</li><li>I’m not at all <input type="text" class="qz" data-type="text" data-answer="interested"> in what rich people do.</li><li>People who run marathons for charity are <input type="text" class="qz" data-type="text" data-answer="amazing"> – I couldn’t do it!</li><li>It’s <input type="text" class="qz" data-type="text" data-answer="frightening"> how many young people are only interested in becoming famous.</li><li>I was pleasantly <input type="text" class="qz" data-type="text" data-answer="surprised"> when I read about the charity work celebrities often do.</li><li>Are you at all <input type="text" class="qz" data-type="text" data-answer="worried"> by the intense media interest in celebrities?</li></ol><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="skill" id="wri"><h3>Writing</h3><p class="sub">Article (Part 2) &middot; Coursebook page 88</p></div><div class="exercise"><div class="ex-head"><span class="exnum">1</span><span class="ex-title">Look at the exam task. Which of these tips should you follow when you write an article? Tick all that apply.</span></div><div class="passage" style="font-style:normal"><p><b>Articles wanted!</b> Who is your favourite celebrity? What qualities do you think a celebrity should have? Would you like to be a celebrity? Write an article answering these questions (about 100 words).</p></div><div class="tips qz" data-type="checkbox" data-answer="1,3,4,5"><label><input type="checkbox" value="1">1 Have a clear introduction.</label><label><input type="checkbox" value="2">2 Use lots of adjectives.</label><label><input type="checkbox" value="3">3 Have clear paragraphs.</label><label><input type="checkbox" value="4">4 Give reasons for your ideas.</label><label><input type="checkbox" value="5">5 Answer all the questions in the task.</label></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">2</span><span class="ex-title">Read the student’s answer and choose the best linkers to complete it.</span></div><div class="passage" style="font-style:normal"><h4>My favourite celebrity</h4><p>My favourite celebrity is (1) <span class="radio-q" data-type="radio" data-answer="actually"><label class="opt"><input type="radio" name="u8w2a" value="actually">actually</label><label class="opt"><input type="radio" name="u8w2a" value="completely">completely</label></span> someone who is only famous locally. He is a man who does a lot of good things for charity, and he helps people as much as he can.</p><p>(2) <span class="radio-q" data-type="radio" data-answer="In my opinion"><label class="opt"><input type="radio" name="u8w2b" value="In my opinion">In my opinion</label><label class="opt"><input type="radio" name="u8w2b" value="However">However</label></span> a celebrity should be someone who everyone can respect. (3) <span class="radio-q" data-type="radio" data-answer="In fact"><label class="opt"><input type="radio" name="u8w2c" value="In fact">In fact</label><label class="opt"><input type="radio" name="u8w2c" value="On the other hand">On the other hand</label></span> , a celebrity should be a good role model for all young people, (4) <span class="radio-q" data-type="radio" data-answer="so that"><label class="opt"><input type="radio" name="u8w2d" value="despite">despite</label><label class="opt"><input type="radio" name="u8w2d" value="so that">so that</label></span> they have a good example to follow.</p><p>I don’t think that I would make a good celebrity, (5) <span class="radio-q" data-type="radio" data-answer="because"><label class="opt"><input type="radio" name="u8w2e" value="because">because</label><label class="opt"><input type="radio" name="u8w2e" value="so">so</label></span> I think it must be difficult to behave well all the time – (6) <span class="radio-q" data-type="radio" data-answer="although"><label class="opt"><input type="radio" name="u8w2f" value="and">and</label><label class="opt"><input type="radio" name="u8w2f" value="although">although</label></span> it might be fun if people asked me for my autograph!</p></div><div class="controls"><button class="btn-check" onclick="checkEx(this)">Check answers</button><button class="btn-reset" onclick="resetEx(this)">Reset</button><span class="result"></span></div></div><div class="exercise"><div class="ex-head"><span class="exnum">3</span><span class="ex-title">Plan and write your own answer to the exam task in Exercise 1. Give examples and make sure you have a clear introduction and conclusion.</span></div><div class="note" style="margin-top:0">This is a free-writing task – write your own article (about 100 words). Remember to follow tips 1, 3, 4 and 5 from Exercise 1.</div></div><hr class="soft"><footer>Gold B1 Preliminary: Exam Maximiser — Unit 8. Interactive practice.<br>Audio © Pearson. For classroom use.</footer></div><script>
+function norm(s){
+  return (s||'').toString().trim().toLowerCase()
+    .replace(/[’‘]/g,"'").replace(/[“”]/g,'"')
+    .replace(/\s+/g,' ').replace(/[.!]+$/,'');
+}
+function setState(el,ok){ el.classList.remove('correct','incorrect'); el.classList.add(ok?'correct':'incorrect'); }
+function showHint(field, ok, answerStr){
+  var n=field.nextElementSibling;
+  if(n && n.classList && n.classList.contains('ans-hint')) n.parentNode.removeChild(n);
+  if(!ok){
+    var first=(answerStr||'').split('|')[0];
+    var h=document.createElement('span');
+    h.className='ans-hint'; h.textContent=' ✓ '+first;
+    field.insertAdjacentElement('afterend', h);
+  }
+}
+
+// clickable word (one per group) + clickable phrase (many)
+document.addEventListener('click',function(e){
+  var w=e.target.closest('.word');
+  if(w){
+    var grp=w.closest('.qz');
+    grp.querySelectorAll('.word').forEach(function(x){x.classList.remove('selected');});
+    w.classList.add('selected');
+  }
+  var p=e.target.closest('.phrase');
+  if(p){ p.classList.toggle('selected'); }
+});
+
+function checkEx(btn){
+  var ex=btn.closest('.exercise');
+  var total=0, got=0, detail='';
+  ex.querySelectorAll('[data-type]').forEach(function(q){
+    var type=q.dataset.type||'text';
+    var ok=false;
+
+    if(type==='text'){
+      var el=q.tagName==='INPUT'?q:q.querySelector('input');
+      var acc=(q.dataset.answer||'').split('|').map(norm);
+      ok=acc.indexOf(norm(el.value))>-1; setState(el,ok);
+      showHint(el, ok, q.dataset.answer); total++;
+
+    }else if(type==='select'){
+      var s=q.tagName==='SELECT'?q:q.querySelector('select');
+      var accs=(q.dataset.answer||'').split('|').map(norm);
+      ok=accs.indexOf(norm(s.value))>-1; setState(s,ok);
+      showHint(s, ok, q.dataset.answer); total++;
+
+    }else if(type==='radio'){
+      var accr=(q.dataset.answer||'').split('|').map(norm);
+      var chk=q.querySelector('input[type=radio]:checked');
+      ok= !!chk && accr.indexOf(norm(chk.value))>-1;
+      q.querySelectorAll('.opt').forEach(function(opt){
+        opt.classList.remove('opt-correct','opt-wrong');
+        var inp=opt.querySelector('input');
+        if(accr.indexOf(norm(inp.value))>-1) opt.classList.add('opt-correct');
+        else if(inp.checked) opt.classList.add('opt-wrong');
+      });
+      total++;
+
+    }else if(type==='checkbox'){
+      var wantArr=(q.dataset.answer||'').split(',').map(function(x){return x.trim();});
+      var haveArr=[].slice.call(q.querySelectorAll('input:checked')).map(function(i){return i.value;});
+      ok=(wantArr.slice().sort().join(',')===haveArr.slice().sort().join(','));
+      q.querySelectorAll('label').forEach(function(lab){
+        lab.classList.remove('opt-correct','opt-wrong');
+        var inp=lab.querySelector('input');
+        if(wantArr.indexOf(inp.value)>-1) lab.classList.add('opt-correct');
+        else if(inp.checked) lab.classList.add('opt-wrong');
+      });
+      total++;
+
+    }else if(type==='clickword'){
+      var accw=norm(q.dataset.answer);
+      var sel=q.querySelector('.word.selected');
+      q.querySelectorAll('.word').forEach(function(x){
+        x.classList.remove('okw','badw');
+        if(norm(x.textContent)===accw) x.classList.add('okw');
+      });
+      ok= !!sel && norm(sel.textContent)===accw;
+      if(sel && !ok) sel.classList.add('badw');
+      total++;
+
+    }else if(type==='clickphrase'){
+      var box=document.getElementById(q.dataset.target);
+      var phrases=[].slice.call(box.querySelectorAll('.phrase'));
+      var cAll=0,cGot=0,wrong=0;
+      phrases.forEach(function(p){
+        var correct=p.dataset.correct==='1';
+        var chosen=p.classList.contains('selected');
+        p.classList.remove('okw','badw','missw');
+        if(correct)cAll++;
+        if(correct&&chosen){cGot++;p.classList.add('okw');}
+        else if(correct&&!chosen){p.classList.add('missw');}
+        else if(!correct&&chosen){wrong++;p.classList.add('badw');}
+      });
+      ok=(cGot===cAll && wrong===0);
+      detail=' (found '+cGot+'/'+cAll+(wrong?(', '+wrong+' wrong'):'')+')';
+      total++;
+    }
+    if(ok)got++;
+  });
+
+  var res=ex.querySelector('.result');
+  if(res){
+    res.textContent='You got '+got+' out of '+total+' correct'+detail+'.';
+    res.classList.remove('pass','part');
+    res.classList.add(got===total?'pass':'part');
+  }
+}
+
+function resetEx(btn){
+  var ex=btn.closest('.exercise');
+  ex.querySelectorAll('input[type=text]').forEach(function(i){i.value='';i.classList.remove('correct','incorrect');});
+  ex.querySelectorAll('select').forEach(function(s){s.value='';s.classList.remove('correct','incorrect');});
+  ex.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(function(i){i.checked=false;});
+  ex.querySelectorAll('.radio-q,.tips-q').forEach(function(g){g.classList.remove('correct','incorrect');});
+  ex.querySelectorAll('label').forEach(function(l){l.classList.remove('opt-correct','opt-wrong');});
+  ex.querySelectorAll('.ans-hint').forEach(function(x){x.parentNode.removeChild(x);});
+  ex.querySelectorAll('.word,.phrase').forEach(function(x){x.classList.remove('selected','okw','badw','missw');});
+  // clickphrase targets a shared dialogue box outside this exercise
+  ex.querySelectorAll('.qz[data-type=clickphrase]').forEach(function(q){
+    var box=document.getElementById(q.dataset.target);
+    if(box) box.querySelectorAll('.phrase').forEach(function(x){x.classList.remove('selected','okw','badw','missw');});
+  });
+  var res=ex.querySelector('.result'); if(res){res.textContent='';res.classList.remove('pass','part');}
+}
+
+function toggleModel(btn){
+  var m=btn.closest('.exercise').querySelector('.model');
+  var shown=m.classList.toggle('show');
+  btn.textContent=shown?'Hide model answers':'Show model answers';
+}
+</script><button id="toTop" type="button" aria-label="Back to top and contents"><span class="arrow" aria-hidden="true">&#8593;</span> Top</button>
+<script>
+(function(){
+  var btn=document.getElementById('toTop');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ticking=false;
+  function update(){
+    if(window.pageYOffset>420) btn.classList.add('show'); else btn.classList.remove('show');
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){ ticking=true; window.requestAnimationFrame(update); }
+  },{passive:true});
+  btn.addEventListener('click',function(){
+    window.scrollTo({top:0, behavior: reduce?'auto':'smooth'});
+    var first=document.querySelector('.toc a');
+    if(first) setTimeout(function(){ first.focus({preventScroll:true}); }, reduce?0:420);
+  });
+  update();
+})();
+</script>
+</body></html>
